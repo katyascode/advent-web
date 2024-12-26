@@ -74,13 +74,13 @@ const GiftBox = ({ gift, userId, onGiftOpened }) => {
           )}
         </Modal.Body>
         {/* If gift is unopened, display a button allowing the user to receive it. */}
-        {!gift?.opened && (!gift?.game || (gift?.game && isGameComplete)) && (
+        {(!gift?.opened || gift?.giftCard) && (!gift?.game || (gift?.game && isGameComplete)) && (
           <Modal.Footer className="mx-auto">
             <button
               className="p-2 bg-gradient-to-tr from-amber-200 to-amber-400 rounded-xl font-bold drop-shadow border-b-2 text-white text-sm"
               onClick={handleReceive}
             >
-              Receive gift
+              {(gift?.opened && gift?.giftCard) ? "View gift card" : "Receive gift"}
             </button>
         </Modal.Footer>)}
       </Modal>
@@ -97,7 +97,7 @@ const GiftBox = ({ gift, userId, onGiftOpened }) => {
           <button
             className={`p-3 rounded-xl font-bold drop-shadow border-b-2 ${buttonClassName(gift?.opened, gift?.date)}`}
             onClick={() => handleOpen()}
-            disabled={dayjs().format('YYYY-MM-DD') < (dayjs(gift?.date.toDate()))}
+            disabled={dayjs() < (dayjs(gift?.date.toDate()))}
           >
             {buttonTitle(gift?.opened, gift?.date)}
           </button>
