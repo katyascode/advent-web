@@ -74,15 +74,34 @@ const GiftBox = ({ gift, userId, onGiftOpened }) => {
           )}
         </Modal.Body>
         {/* If gift is unopened, display a button allowing the user to receive it. */}
-        {(!gift?.opened || gift?.giftCard) && (!gift?.game || (gift?.game && isGameComplete)) && (
+        {((!gift?.game) || isGameComplete || gift?.opened) && (
           <Modal.Footer className="mx-auto">
-            <button
-              className="p-2 bg-gradient-to-tr from-amber-200 to-amber-400 rounded-xl font-bold drop-shadow border-b-2 text-white text-sm"
-              onClick={handleReceive}
-            >
-              {(gift?.opened && gift?.giftCard) ? "View gift card" : "Receive gift"}
-            </button>
-        </Modal.Footer>)}
+            {(!gift?.opened && (!gift?.game || isGameComplete)) && (
+              <button
+                className="p-2 bg-gradient-to-tr from-amber-200 to-amber-400 rounded-xl font-bold drop-shadow border-b-2 text-white text-sm"
+                onClick={handleReceive}
+              >
+                Receive gift
+              </button>
+            )}
+            {(gift?.opened && gift?.giftCard) && (
+              <button
+                className="p-2 bg-gradient-to-tr from-amber-200 to-amber-400 rounded-xl font-bold drop-shadow border-b-2 text-white text-sm"
+                onClick={handleReceive}
+              >
+                View gift card
+              </button>
+            )}
+            {(gift?.opened && !gift?.giftCard) && (
+              <button
+                disabled
+                className="p-2 bg-gray-300 rounded-xl font-bold drop-shadow border-b-2 text-gray-500 text-sm"
+              >
+                Gift received
+              </button>
+            )}
+          </Modal.Footer>
+        )}
       </Modal>
       <div key={gift?.id} className="flex flex-col p-3 justify-center items-center bg-white sm:w-1/3 w-2/3 rounded-xl shadow-lg">
         <div
