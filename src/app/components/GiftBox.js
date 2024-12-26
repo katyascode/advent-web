@@ -66,10 +66,14 @@ const GiftBox = ({ gift, userId, onGiftOpened }) => {
             />
           )}
           {/* Conditionally render photo & message */}
-          {((!gift?.game) || (gift?.game && isGameComplete) || gift?.opened) && (
-            <div className="px-4 text-center">
+          {((!gift?.game) || (gift?.game && isGameComplete)) && (
+            <div className="flex flex-col space-y-2 px-4 text-center items-center">
               <img src={gift?.photo} alt="Gift image" className="w-full mx-auto py-2 mb-2" />
               <p>{gift?.message}</p>
+              <p className="text-sm font-semibold">Card number:</p>
+              <code className="rounded-lg bg-gray-100 p-2 w-fit">{gift?.giftCardNumber}</code>
+              <p className="text-sm font-semibold">PIN:</p>
+              <code className="rounded-lg bg-gray-100 p-2 w-fit">{gift?.giftCardPin}</code>
             </div>
           )}
         </Modal.Body>
