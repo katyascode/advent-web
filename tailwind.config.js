@@ -7,6 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        'shake-rotate': {
+          '0%, 20%': { transform: 'rotate(0deg)' },  // Upright at the start and end
+          '30%': { transform: 'rotate(-2.5deg)' },    // Tip left
+          '50%': { transform: 'rotate(2.5deg)' },     // Tip right
+          '70%': { transform: 'rotate(-2.5deg)' },    // Tip left again
+          '100%': { transform: 'rotate(0deg)' },    // Upright
+        },
+      },
+      animation: {
+        'shake-rotate': 'shake-rotate 1.5s infinite',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
